@@ -1,3 +1,9 @@
+# File Loader Component using boilerplate
+Note: File Loader component dir is:
+```sh
+client/Index/file-loader
+```
+
 # react-webpack-boilerplate [![Build Status][travis-badge]][travis] [![Coverage Status][coveralls-badge]][coveralls]
 > Simple production-ready boilerplate for [React](http://facebook.github.io/react/) and [Webpack](http://webpack.github.io/) (SASS and React hot reloading) and tests with Jest.
 

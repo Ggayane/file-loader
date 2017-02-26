@@ -1,28 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import FileLoader from './file-loader/loader'
 
 class IndexComponent extends Component {
-  render() {
-    if (this.props.items.length === 0) {
-      return (
-        <p ref="empty">Index is empty.</p>
-      );
+  constructor (props) {
+    super(props)
+    this.state = {
+      file: null
     }
+  }
 
+  uploadFile (e) {
+    console.log(e.target.files)
+    this.setState({file: e.target.files[0]})
+  }
+
+  render () {
     return (
-      <section>
-        <h2>react-webpack-boilerplate</h2>
-        <ul ref="indexList" className="index-list">
-          {this.props.items.map((item, index) => {
-            return (<li key={index}>item {item}</li>);
-          })}
-        </ul>
-      </section>
-    );
+      <div style={{width: '500px', margin: '0 auto'}}>
+        <h2 style={{textAlign: 'center'}}>Demo Of File Loader</h2>
+        <input type='file' onChange={(e) => this.uploadFile(e)} />
+        <FileLoader
+          showCancelBtn
+          file={this.state.file || null}
+          url='#' />
+      </div>
+    )
   }
 }
 
 IndexComponent.defaultProps = {
-  items: []
-};
 
-export default IndexComponent;
+}
+
+export default IndexComponent
