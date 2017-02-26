@@ -1,7 +1,7 @@
 # File Loader Component using boilerplate
 Note: File Loader component dir is:
 ```sh
-client/Index/file-loader
+client/components/Index/file-loader
 ```
 
 # react-webpack-boilerplate [![Build Status][travis-badge]][travis] [![Coverage Status][coveralls-badge]][coveralls]
