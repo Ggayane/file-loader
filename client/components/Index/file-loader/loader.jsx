@@ -8,8 +8,6 @@ export default class FileLoader extends Component {
     this.state = {
       loading: false,
       percentage: 0,
-      validFileTypes: ['image/jpeg', 'image/png'],
-      fileMaxSize: 1024,
       error: false,
       errorMessage: '',
       uploaded: false,
@@ -29,6 +27,7 @@ export default class FileLoader extends Component {
   }
 
   uploadFile (file, url) {
+    const { requestSuccessParam, requestSuccessVal } = this.props
     addLoaderListener()
     this.setState({loading: true})
     let uploaded = false
@@ -36,7 +35,6 @@ export default class FileLoader extends Component {
     return $.ajax({
       xhr: function () {
         const xhr = $.ajaxSettings.xhr()
-        console.log('aaaaa', xhr.upload)
         if (xhr.upload) {
           xhr.upload.addEventListener('progress', this.setUploadedPercentage, false)
         }
@@ -49,7 +47,7 @@ export default class FileLoader extends Component {
       processData: false,
       success: data => {
         uploaded = true
-        uploadStatus = data.status === 'ok' ? 'done' : 'failed'
+        uploadStatus = data[requestSuccessParam] === requestSuccessVal ? 'done' : 'failed'
         this.uploadFinished({uploaded, uploadStatus})
       },
       error: () => {
@@ -69,7 +67,7 @@ export default class FileLoader extends Component {
   }
 
   validateFile (file) {
-    const {validFileTypes, fileMaxSize} = this.state
+    const {validFileTypes, fileMaxSize} = this.props
     if (validFileTypes.indexOf(file.type) < 0) {
       this.setState({
         error: true,
@@ -160,5 +158,15 @@ export default class FileLoader extends Component {
 }
 
 FileLoader.propTypes = {
+  file: React.PropTypes.object,
+  url: React.PropTypes.string.isRequired,
+  requestSuccessParam: React.PropTypes.string.isRequired,
+  requestSuccessVal: React.PropTypes.string.isRequired,
+  validFileTypes: React.PropTypes.array,
+  fileMaxSize: React.PropTypes.number
+}
 
+FileLoader.defaultProps = {
+  validFileTypes: ['image/jpeg', 'image/png'],
+  fileMaxSize: 1024
 }

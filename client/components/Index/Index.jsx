@@ -22,6 +22,8 @@ class IndexComponent extends Component {
         <FileLoader
           showCancelBtn
           file={this.state.file || null}
+          requestSuccessParam='status'
+          requestSuccessVal='ok'
           url='#' />
       </div>
     )
